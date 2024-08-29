@@ -225,6 +225,7 @@ export default function Dashboard() {
               }
               type="number"
               placeholder="Price"
+              min="0"
             />
             <select
               className="mb-4 p-3 w-full rounded-lg border border-gray-300 text-black"
