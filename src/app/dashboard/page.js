@@ -15,7 +15,7 @@ import { db } from "../firebase";
 import { Doughnut } from "react-chartjs-2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../chartConfig";
+import "../chartConfig";
 import { useRouter } from "next/navigation";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
@@ -125,24 +125,37 @@ export default function Dashboard() {
     }
   };
 
+  const categories = [
+    "Food",
+    "Entertainment",
+    "Utilities",
+    "Transportation",
+    "Others",
+  ];
+
+  const categoryData = categories.map((category) => {
+    if (category === "Others") {
+      // Filter items that don't belong to any of the predefined categories
+      return items
+        .filter((item) => !categories.slice(0, -1).includes(item.category))
+        .reduce((sum, item) => sum + parseFloat(item.price), 0);
+    }
+    return items
+      .filter((item) => item.category === category)
+      .reduce((sum, item) => sum + parseFloat(item.price), 0);
+  });
+
   const data = {
-    labels: [...new Set(items.map((item) => item.category)), "Others"],
+    labels: categories,
     datasets: [
       {
-        data: [
-          ...items.map((item) => item.price),
-          items
-            .filter((item) => item.category === "Others")
-            .reduce((sum, item) => sum + parseFloat(item.price), 0),
-        ],
+        data: categoryData,
         backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
-          "#FF6F61",
+          "#FF6384", // Food
+          "#36A2EB", // Entertainment
+          "#FFCE56", // Utilities
+          "#4BC0C0", // Transportation
+          "#9966FF", // Others
         ],
       },
     ],
