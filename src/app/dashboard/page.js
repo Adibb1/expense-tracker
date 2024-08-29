@@ -264,7 +264,7 @@ export default function Dashboard() {
                       <p className="text-sm text-gray-500">{item.category}</p>
                     </div>
                     <div className="flex items-center">
-                      <span className="text-lg">${item.price}</span>
+                      <span className="text-lg">RM{item.price}</span>
                       <button
                         className="ml-4 bg-red-500 text-white py-1 px-3 rounded-lg"
                         onClick={() => deleteItem(item.id)}
@@ -314,14 +314,15 @@ export default function Dashboard() {
             {items.length > 0 ? (
               <>
                 <span>Total:</span>
-                <span>${total.toFixed(2)}</span>
+                <span>RM{total.toFixed(2)}</span>
                 {budgetAmount > 0 && (
                   <>
                     <span className="mt-2">
-                      Budget: ${budgetAmount.toFixed(2)}
+                      Budget: RM{budgetAmount.toFixed(2)}
                     </span>
                     <span>
-                      Remaining: ${Math.max(budgetAmount - total, 0).toFixed(2)}
+                      Remaining: RM
+                      {Math.max(budgetAmount - total, 0).toFixed(2)}
                     </span>
                   </>
                 )}
