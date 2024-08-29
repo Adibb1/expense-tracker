@@ -289,6 +289,7 @@ export default function Dashboard() {
               onChange={(e) => setBudget(e.target.value)}
               type="number"
               placeholder="Enter budget"
+              min="0"
             />
             <button
               className="bg-green-600 text-white py-2 px-4 rounded-lg font-semibold text-lg"
